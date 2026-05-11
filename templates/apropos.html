@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>À propos - CheckNews</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #0d1a2b, #1a2f40, #264766);
+      color: white;
+      margin: 0;
+      padding: 0;
+      padding-top: 80px; 
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 10%;
+      background: #0d1a2b;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 10;
+      backdrop-filter: blur(5px);
+    }
+
+    nav {
+      display: flex;
+      gap: 10px;
+      margin: 0 auto; 
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #717a7e;
+    }
+
+    .logo {
+      margin-right: auto; 
+    }
+
+    #themeToggle {
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: inherit;
+      margin-left: 20px;
+    }
+
+    body.light-mode header {
+      background-color: #cce0f0;
+      color: #222;
+      backdrop-filter: none;
+    }
+
+    body.light-mode nav a {
+      color: #222;
+    }
+
+    body.light-mode nav a:hover {
+      color: #005599;
+    }
+
+    body.light-mode {
+      background: linear-gradient(to right, #f0f6ff, #e0ecff, #d0e2ff);
+      color: #222;
+    }
+
+    body.light-mode header {
+      background:  #cce0f0;
+      color: #222;
+      backdrop-filter: none;
+    }
+
+    body.light-mode p {
+      color: #222; 
+    }
+
+    body.light-mode h1 {
+      color:  #3399ff;
+    }
+
+    .logo img {
+      height: 60px;
+      width: 130px;
+    }
+
+    .container {
+      padding: 150px 10% 50px;
+      line-height: 1.8;
+    }
+
+    h1 {
+      font-size: 36px;
+      color: #3399ff;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 16px;
+      color: #eee;
+      margin-bottom: 1em;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #0d1a2b;
+      text-align: center;
+      padding: 30px;
+      position: relative;
+    }
+
+    footer a {
+      color: #3399ff;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+
+    body.light-mode footer {
+      background-color: #cce0f0;
+      color: #222;
+    }
+
+    body.light-mode footer a {
+      color: #005599;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+ <header>
+  <div class="logo">
+    <img src="/static/images/lanterne.png" alt="lanterne Logo">
+  </div>
+  <button id="themeToggle" title="Changer de mode">🌙</button>
+  <nav>
+    <a href="{{ url_for('principal') }}">Accueil</a>
+    <a href="{{ url_for('a_propos') }}">À propos</a>
+    <a href="{{ url_for('fonctionnalite') }}">Fonctionnalités</a>
+    <a href="{{ url_for('contact') }}">Contact</a>
+    <a href="{{ url_for('connexion') }}">Se connecter</a>
+  </nav>
+</header>
+
+<div class="container">
+  <h1>À propos de Lanterne</h1>
+  
+  <p>
+    <strong>Lanterne</strong> est une application intelligente propulsée par l’intelligence artificielle (IA), créée pour vous aider à <em>détecter les fausses nouvelles</em> et à <em>identifier les informations fiables</em>.  
+    Dans un monde où la désinformation se répand à grande vitesse, Laterne agit comme votre <strong>veille numérique</strong>, vous guidant à travers un océan d’informations.
+  </p>
+
+  <p>
+    Grâce à des algorithmes avancés de traitement automatique du langage naturel (TALN) et d’apprentissage automatique, Lanterne analyse en profondeur le contenu des articles, publications et actualités.  
+    Elle évalue leur fiabilité en se basant sur des sources vérifiées et des modèles entraînés sur de vastes ensembles de données, pour vous fournir une information claire et transparente.
+  </p>
+
+  <p>
+    Que vous soyez un <em>lecteur curieux</em>, un <em>étudiant</em> ou un <em>professionnel</em>, Lanterne est votre compagnon idéal pour :  
+    <ul>
+      <li>Comprendre en profondeur les informations que vous consommez</li>
+      <li>Développer votre esprit critique face à la masse d’informations</li>
+      <li>Naviguer avec confiance dans le monde numérique</li>
+    </ul>
+  </p>
+
+ 
+</div>
+
+<footer>
+  <p>© 2025 later. Tous droits réservés.</p>
+  <p>
+    <a href="#">Politique de confidentialité</a> |
+    <a href="#">Termes et conditions</a> |
+    <a href="#">Contact</a>
+  </p>
+</footer>
+
+<script>
+  const toggleButton = document.getElementById("themeToggle");
+  const body = document.body;
+
+  toggleButton.addEventListener("click", () => {
+    body.classList.toggle("light-mode");
+
+    if (body.classList.contains("light-mode")) {
+      toggleButton.textContent = "☀️"; 
+    } else {
+      toggleButton.textContent = "🌙"; 
+    }
+  });
+</script>
+</body>
+</html>

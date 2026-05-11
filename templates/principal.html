@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>lanterne</title>
+  <style>
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+header {
+  display: flex;
+  align-items: center;
+  padding: 20px 10%;
+  background: #0d1a2b;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+  backdrop-filter: blur(5px);
+}
+
+.logo img {
+  height: 75px;
+  width: 130px;
+}
+
+.logo {
+  margin-right: auto; 
+}
+
+nav {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-left: 30px; 
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+nav a:hover {
+  color: #3399ff;
+}
+
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to right, #0d1a2b, #1a2f40, #264766);
+  color: white;
+  margin: 0;
+  padding: 0;
+  padding-top: 80px; 
+}
+
+body.light-mode {
+  background: linear-gradient(to right, #f0f6ff, #e0ecff, #d0e2ff);
+  color: #222;
+}
+
+body.light-mode header {
+  background-color: #cce0f0;
+  color: #222;
+  backdrop-filter: none;
+}
+
+body.light-mode nav a {
+  color: #222;
+}
+
+body.light-mode nav a:hover {
+  color: #005599;
+}
+
+
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100vh;
+  padding: 0 10%;
+  position: relative;
+  z-index: 1;
+}
+
+.content {
+  max-width: 50%;
+  z-index: 2;
+}
+
+.highlight {
+  color: #3399ff;
+}
+
+h1 {
+  font-size: 48px;
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+
+p {
+  font-size: 16px;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+.buttons {
+  display: flex;
+  gap: 15px;
+}
+
+.btn {
+  padding: 12px 25px;
+  border-radius: 4px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.primary {
+  background-color: #3399ff;
+  color: #000;
+}
+
+.primary:hover {
+  background-color: #0077cc;
+}
+
+.secondary {
+  border: 1px solid #3399ff;
+  color: #3399ff;
+}
+
+.secondary:hover {
+  background-color: #3399ff;
+  color: #000;
+}
+
+
+.symbol-container {
+  position: absolute;
+  top: 24%;
+  right: 15%;
+  width: 300px;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.internet-globe {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  opacity: 0.3;
+  z-index: 0;
+  animation: pulse 3s infinite ease-in-out;
+  filter: drop-shadow(0 0 10px #3399ff);
+}
+
+.loupe-icon {
+  width: 220px;
+  height: auto;
+  z-index: 2;
+  animation: float 6s ease-in-out infinite;
+  filter: drop-shadow(0 0 15px #3399ff);
+}
+
+@keyframes pulse {
+  0% { transform: scale(0.95); opacity: 0.4; }
+  50% { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(0.95); opacity: 0.4; }
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.news-section {
+  padding: 50px 10%;
+  background-color: #1a2a40;
+}
+
+.news-title {
+  font-size: 36px;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #3399ff;
+}
+
+.news-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.news-item {
+  background-color: #2a3a50;
+  padding: 15px;
+  border-radius: 6px;
+  color: white;
+}
+
+.news-item h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.news-item p {
+  font-size: 14px;
+}
+
+
+.news-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 30px;
+  margin-top: 100px;
+  border-radius: 10px;
+  background-color: inherit;
+}
+
+.news-card {
+  border-radius: 10px;
+  padding: 15px;
+  overflow: hidden;
+  color: #ebe9e9;
+  transition: transform 0.3s, box-shadow 0.3s;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  opacity: 0;
+  animation: fadeIn 0.5s forwards;
+}
+
+.news-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.news-image img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.news-details {
+  margin-top: 15px;
+  flex-grow: 1;
+}
+
+.news-details h3 {
+  font-size: 18px;
+  font-weight: bold;
+  color: #3399ff;
+  margin-bottom: 10px;
+  transition: color 0.3s;
+}
+
+.news-details h3 a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.news-details h3 a:hover {
+  color: #5e8ed7;
+}
+
+.news-details .description {
+  font-size: 14px;
+  color: #ccc;
+  margin-bottom: 10px;
+  height: 60px;
+  overflow: hidden;
+}
+
+.news-details .source,
+.news-details .published {
+  font-size: 12px;
+  color: #aaa;
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+
+#a-propos, #fonctionnalites, #contact {
+  text-align: center;
+}
+
+#a-propos h2, #fonctionnalites h2, #contact h2 {
+  font-size: 28px;
+  margin-bottom: 15px;
+}
+
+#a-propos p, #fonctionnalites ul, #contact p {
+  font-size: 16px;
+  line-height: 1.6;
+  max-width: 800px;
+  margin: 0 auto 20px;
+}
+
+#fonctionnalites ul {
+  list-style: none;
+  padding: 0;
+}
+
+#fonctionnalites ul li::before {
+  content: "✔ ";
+  color: #3399ff;
+  font-weight: bold;
+}
+
+#a-propos a, #fonctionnalites a, #contact a {
+  color: #3399ff;
+  font-weight: bold;
+  text-decoration: none;
+  margin-top: 10px;
+  display: inline-block;
+}
+
+#a-propos a:hover, #fonctionnalites a:hover, #contact a:hover {
+  text-decoration: underline;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+footer {
+  background-color: #0d1a2b;
+  color: white;
+  text-align: center;
+  padding: 30px;
+  position: relative;
+}
+
+footer a {
+  color: #3399ff;
+  text-decoration: none;
+  margin: 0 10px;
+}
+
+body.light-mode footer {
+  background-color: #cce0f0;
+  color: #222;
+}
+
+
+body.light-mode footer a {
+  color: #005599;
+}
+body.light-mode header {
+   background-color: #cce0f0;
+  color: #222;
+  backdrop-filter: none;
+}
+
+
+  </style>
+  
+</head>
+<body>
+   <header>
+  <div class="logo">
+    <img src="/static/images/lanterne.png" alt="Lanterne Logo">
+  </div>
+   <button id="themeToggle" title="Changer de mode">🌙</button>
+  <nav>
+    <a href="#principaal">Accueil</a>
+<a href="#a-propos">À propos</a>
+<a href="#fonctionnalites">Fonctionnalités</a>
+<a href="#contact">Contact</a>
+<a href="{{ url_for('connexion') }}">Se connecter</a>
+
+  </nav>
+
+  
+</header>
+
+  <section class="hero">
+    <div class="content">
+      <h1><span class="highlight">Lanterne</span><br>Lutte contre les fausses nouvelles</h1>
+      <p>Une application intelligente pour détecter et signaler les fausses informations<br>
+         Protégez-vous et protégez les autres de la désinformation.</p>
+      <div class="buttons">
+        <a href="{{ url_for('analyse') }}" class="btn primary">Commencer</a>
+        <a href="{{ url_for('contact') }}" class="btn secondary">Nous contacter</a>
+      </div>
+    </div>
+
+    <div class="symbol-container">
+  
+<img src="https://img.icons8.com/ios-filled/300/005bbb/internet.png" alt="Globe Internet Bleu Foncé" class="internet-globe"/>
+
+
+<img src="https://img.icons8.com/ios-filled/250/3399ff/search--v1.png" alt="Loupe Bleue" class="loupe-icon"/>
+
+
+    </div>
+  </section>
+
+
+  <div class="news-container">
+   
+</div>
+
+
+
+
+<section id="a-propos" style="padding: 100px 10% 50px; ">
+  <h2 style="color: #262626;">À propos</h2>
+  <p>
+    Lanterne est une application conçue pour lutter contre la désinformation en ligne...
+  </p>
+  <a href="{{ url_for('a_propos') }}" style="color: #262626;">En savoir plus</a>
+</section>
+
+<section id="fonctionnalites" style="padding: 80px 10% 50px; ">
+  <h2 style="color:  #262626;">Fonctionnalités</h2>
+  <ul>
+    <li>Analyse automatique des articles</li>
+    <li>Comparaison avec des sources fiables</li>
+    <li>Notation de fiabilité</li>
+  </ul>
+  <a href="{{ url_for('fonctionnalite') }}" style="color: #262626;">Voir toutes les fonctionnalités</a>
+</section>
+
+<section id="contact" style="padding: 80px 10% 50px;">
+  <h2 style="color: #262626;">Contact</h2>
+  <p>
+    Une question ? Une remarque ? Nous sommes là pour vous aider.
+  </p>
+  <a href="{{ url_for('contact') }}" style="color: #262626;">Nous contacter</a>
+</section>
+
+
+
+  <footer>
+    <p>© 2025 Lanterne. Tous droits réservés.</p>
+    <p>
+      <a href="#">Politique de confidentialité</a> |
+      <a href="#">Termes et conditions</a> |
+      <a href="#">Contact</a>
+    </p>
+  </footer>
+
+
+
+
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+    console.log("Chargement DOM terminé");
+    fetchNewsFromAPI1(); 
+    fetchNewsFromAPI2(); 
+});
+
+function fetchNewsFromAPI1() {
+    const apiKey1 = 'pub_846240daf02ef493558432a74dfa87cc286fc'; // Clé API newsdata.io
+    const url1 = `https://newsdata.io/api/1/news?apikey=${apiKey1}&language=fr&q=technologie`;
+
+    fetch(url1)
+        .then(response => response.json())
+        .then(data => {
+            console.log("Données reçues depuis newsdata.io :", data);
+            if (data.results) {
+                data.results.sort((a, b) => new Date(b.publishedAt || b.published) - new Date(a.publishedAt || a.published));
+                displayArticles(data.results);
+            }
+        })
+        .catch(error => {
+            console.error("Erreur API newsdata.io :", error);
+        });
+}
+
+function fetchNewsFromAPI2() {
+    const apiKey2 = 'ea51b7e3334847ca807c677f97f1700f'; // Clé API  newsapi.org
+    const url2 = `https://newsapi.org/v2/everything?q=technologie&apiKey=${apiKey2}&language=fr&pageSize=5`;
+
+    fetch(url2)
+        .then(response => response.json())
+        .then(data => {
+            console.log("Données reçues depuis newsapi.org :", data); 
+            if (data.articles) {
+                data.articles.sort((a, b) => new Date(b.publishedAt || b.published) - new Date(a.publishedAt || a.published));
+                displayArticles(data.articles);
+            }
+        })
+        .catch(error => {
+            console.error("Erreur API newsapi.org :", error);
+        });
+}
+
+
+function displayArticles(articles) {
+    const container = document.querySelector('.news-container');
+    
+    if (!articles || articles.length === 0) {
+        container.innerHTML = "<p>Aucune actualité disponible.</p>";
+        return;
+    }
+
+    container.innerHTML = "";
+
+    articles.forEach(article => {
+        const card = document.createElement('div');
+        card.className = 'news-card';
+
+        const imageUrl = article.urlToImage || article.image_url || '/static/images/default-image.jpg';
+
+        card.innerHTML = `
+            <div class="news-image">
+                <img src="${imageUrl}" alt="Image de l'article">
+            </div>
+            <div class="news-details">
+                <h3><a href="${article.url || article.link}" target="_blank">${article.title}</a></h3>
+                <p class="description">${article.description || 'Pas de description disponible'}</p>
+                <p class="source">Source: ${article.source ? article.source.name : 'Non spécifiée'}</p>
+                <p class="published">Publié: ${article.publishedAt || article.published}</p>
+            </div>
+        `;
+        container.appendChild(card);
+    });
+}
+
+
+
+
+
+
+  const toggleButton = document.getElementById("themeToggle");
+  const body = document.body;
+
+  toggleButton.addEventListener("click", () => {
+    body.classList.toggle("light-mode");
+
+    if (body.classList.contains("light-mode")) {
+      toggleButton.textContent = "☀️"; 
+    } else {
+      toggleButton.textContent = "🌙"; 
+    }
+  });
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mot de passe oublié | Lanterne</title>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  />
+  <style>
+    :root {
+      --primary-color: #3399ff;
+      --background-color: #121212;
+      --card-color: #1f1f1f;
+      --text-color: #ffffff;
+      --error-color: #e74c3c;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--background-color);
+      color: var(--text-color);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .forgot-container {
+      background-color: var(--card-color);
+      border-radius: 12px;
+      box-shadow: 0 0 15px #3399ff;
+      width: 100%;
+      max-width: 400px;
+      padding: 40px;
+      text-align: center;
+      animation: fadeIn 0.6s ease-out;
+      position: relative;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .logo {
+      margin-bottom: 30px;
+    }
+
+    .logo img {
+      max-width: 100px;
+      height: auto;
+      margin-bottom: 10px;
+    }
+
+    .logo h1 {
+      color: var(--primary-color);
+      font-size: 1.5rem;
+    }
+
+    h2 {
+      color: var(--primary-color);
+      margin-bottom: 25px;
+      font-weight: 600;
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px 15px;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      background-color: #333;
+      color: white;
+    }
+
+    input:focus {
+      outline: 2px solid var(--primary-color);
+    }
+
+    .btn-reset {
+      background-color: var(--primary-color);
+      color: #121212;
+      border: none;
+      padding: 14px;
+      width: 100%;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+      margin-top: 10px;
+    }
+
+    .btn-reset:hover {
+      background-color: #2678cc;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px #2678cc;
+    }
+
+    .message {
+      margin-top: 20px;
+      font-size: 0.9rem;
+    }
+
+    .message.success {
+      color: #2ecc71;
+    }
+
+    .message.error {
+      color: var(--error-color);
+    }
+
+    a {
+      color: var(--primary-color);
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 20px;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* Thème clair */
+    body.light-mode {
+      background: linear-gradient(to right, #ffffff, #f0f0f0, #dcdcdc);
+      color: #222;
+    }
+
+    body.light-mode .forgot-container {
+      background-color: #ffffff;
+      box-shadow: 0 0 15px rgba(51, 51, 51, 0.2);
+    }
+
+    body.light-mode input {
+      background-color: #f0f0f0;
+      color: #222;
+    }
+
+    body.light-mode input:focus {
+      outline: 2px solid #3399ff;
+    }
+
+    body.light-mode h2,
+    body.light-mode .logo h1 {
+      color: #333;
+    }
+
+    body.light-mode .btn-reset {
+      background-color: #3399ff;
+      color: #ffffff;
+    }
+
+    body.light-mode .btn-reset:hover {
+      background-color: #2678cc;
+      box-shadow: 0 5px 15px #2678cc;
+      transform: translateY(-2px);
+    }
+
+    body.light-mode a {
+      color: #3399ff;
+    }
+
+    body.light-mode #themeToggle {
+      color: #222;
+    }
+
+    #themeToggle {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: none;
+      border: none;
+      font-size: 1.3rem;
+      cursor: pointer;
+      color: var(--text-color);
+      transition: color 0.3s;
+    }
+  </style>
+</head>
+<body>
+  <div class="forgot-container">
+    <button id="themeToggle" title="Changer de mode">🌙</button>
+    <div class="logo">
+      <img src="/static/images/lanterne.png" alt="Logo CheckNews" />
+      <h1>lanterne</h1>
+    </div>
+
+    <h2>Mot de passe oublié</h2>
+
+    <form id="forgotForm">
+      <div class="input-group">
+        <label for="email">Entrez votre adresse email</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="prenom.nom@email.com"
+          required
+        />
+      </div>
+
+      <button type="submit" class="btn-reset">
+        Envoyer le lien de réinitialisation
+      </button>
+      <div class="message" id="message"></div>
+    </form>
+
+    <a href="{{ url_for('connexion') }}"
+      ><i class="fas fa-arrow-left"></i> Retour à la connexion</a
+    >
+  </div>
+
+  <script>
+    const toggleButton = document.getElementById("themeToggle");
+    const body = document.body;
+
+    toggleButton.addEventListener("click", () => {
+      body.classList.toggle("light-mode");
+      toggleButton.textContent = body.classList.contains("light-mode")
+        ? "☀️"
+        : "🌙";
+    });
+  </script>
+</body>
+</html>

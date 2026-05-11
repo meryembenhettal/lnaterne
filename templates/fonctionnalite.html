@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fonctionnalités - Lanterne</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #0d1a2b, #1a2f40, #264766);
+      color: white;
+      margin: 0;
+      padding: 0;
+      padding-top: 80px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      padding: 20px 10%;
+      background: #0d1a2b;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 10;
+      backdrop-filter: blur(5px);
+    }
+
+    .logo img {
+      height: 60px;
+      width: 130px;
+    }
+
+    .logo {
+      margin-right: auto;
+    }
+
+    nav {
+      display: flex;
+      gap: 10px;
+      margin: 0 auto;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #717a7e;
+    }
+
+    .container {
+      padding: 150px 10% 50px;
+      line-height: 1.8;
+    }
+
+    h1 {
+      font-size: 36px;
+      color: #3399ff;
+      margin-bottom: 30px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      margin-bottom: 20px;
+      font-size: 17px;
+      background-color: #1a2f40;
+      padding: 15px;
+      border-left: 5px solid #3399ff;
+    }
+
+    footer {
+      background-color: #0d1a2b;
+      text-align: center;
+      padding: 30px;
+      position: relative;
+    }
+
+    footer a {
+      color: #3399ff;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Light mode styles */
+    body.light-mode {
+      background: linear-gradient(to right, #f0f6ff, #e0ecff, #d0e2ff);
+      color: #222;
+    }
+
+    body.light-mode header {
+      background:  #cce0f0;
+      color: #222;
+      backdrop-filter: none;
+    }
+
+    body.light-mode nav a {
+      color: #222;
+    }
+
+    body.light-mode nav a:hover {
+      color: #005599;
+    }
+
+    body.light-mode h1 {
+      color: #3399ff;
+    }
+
+    body.light-mode li {
+      background-color: #eaf2ff;
+      border-left: 5px solid #3399ff;
+      color: #222;
+    }
+
+    body.light-mode footer {
+      background-color: #cce0f0;
+      color: #222;
+    }
+
+    body.light-mode footer a {
+      color: #005599;
+    }
+
+    #themeToggle {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 20px;
+      margin-right: 20px;
+      cursor: pointer;
+    }
+
+    body.light-mode #themeToggle {
+      color: #222;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="/static/images/lanterne.png" alt="CheckNews Logo">
+    </div>
+    <button id="themeToggle" title="Changer de mode">🌙</button>
+    <nav>
+      <a href="{{ url_for('principal') }}">Accueil</a>
+      <a href="{{ url_for('a_propos') }}">À propos</a>
+      <a href="{{ url_for('fonctionnalite') }}">Fonctionnalités</a>
+      <a href="{{ url_for('contact') }}">Contact</a>
+      <a href="{{ url_for('connexion') }}">Se connecter</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <h1>Fonctionnalités de Lanterne</h1>
+    <ul>
+  <li><strong>A Analyse intelligente des articles :</strong> Détecte les signaux de désinformation.</li>
+  <li><strong>Comparaison avec des sources fiables :</strong> Vérifie les faits avec des bases de données reconnues.</li>
+  <li><strong>Notation de fiabilité :</strong> Attribue un score aux contenus analysés.</li>
+  <li><strong>Rapports détaillés :</strong> Pour chaque vérification, un rapport clair est généré.</li>
+  <li><strong>Historique des analyses :</strong> Chaque utilisateur peut consulter ses vérifications passées après connexion.</li>
+  <li><strong>Multi-mode de saisie des articles :</strong> Possibilité d’entrer un article via : lien URL, texte brut ou fichier (PDF/DOCX).</li>
+</ul>
+
+  </div>
+
+  <footer>
+    <p>© 2025 lanterne. Tous droits réservés.</p>
+    <p>
+      <a href="#">Politique de confidentialité</a> |
+      <a href="#">Termes et conditions</a> |
+      <a href="#">Contact</a>
+    </p>
+  </footer>
+
+  <script>
+    const toggleButton = document.getElementById("themeToggle");
+    const body = document.body;
+
+    toggleButton.addEventListener("click", () => {
+      body.classList.toggle("light-mode");
+      toggleButton.textContent = body.classList.contains("light-mode") ? "☀️" : "🌙";
+    });
+  </script>
+</body>
+</html>

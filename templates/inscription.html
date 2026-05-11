@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Inscription</title>
+  <style>
+    body {
+      background-color: #121212;
+      color: #ffffff;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .register-box {
+      background-color: #1f1f1f;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(217, 235, 241, 0.4);
+      width: 320px;
+      position: relative;
+      text-align: center;
+    }
+
+    .logo-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 15px;
+      position: relative;
+    }
+
+    .logo-container img {
+      height: 50px;
+    }
+
+    #themeToggle {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 20px;
+      color: #3399ff;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
+
+    h2 {
+      color: #3399ff;
+      margin-top: 10px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 15px;
+      border: none;
+      border-radius: 5px;
+      background-color: #333;
+      color: white;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    button[type="submit"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 20px;
+      border: none;
+      border-radius: 5px;
+      background-color: #3399ff;
+      color: #121212;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    a {
+      display: block;
+      text-align: center;
+      margin-top: 15px;
+      color: #3399ff;
+      text-decoration: none;
+    }
+
+    /* Thème clair */
+    body.light-mode {
+      background: linear-gradient(to right, #ffffff, #f0f0f0, #dcdcdc);
+      color: #222;
+    }
+
+    body.light-mode .register-box {
+      background-color: #ffffff;
+      box-shadow: 0 0 15px rgba(51, 51, 51, 0.2);
+    }
+
+    body.light-mode input {
+      background-color: #f0f0f0;
+      color: #222;
+    }
+
+    body.light-mode button[type="submit"] {
+      background-color: #3399ff;
+      color: #ffffff;
+    }
+
+    body.light-mode a {
+      color: #3399ff;
+    }
+
+    body.light-mode #themeToggle {
+      color: #222;
+    }
+  </style>
+</head>
+<body>
+  <div class="register-box">
+    <button id="themeToggle" title="Changer de mode">🌙</button>
+
+    <div class="logo-container">
+      <img src="/static/images/lanterne.png" alt="Logo du site">
+    </div>
+
+    <h2>Créer un compte</h2>
+
+    <form action="/inscription" method="post">
+      <input type="text" name="username" placeholder="Nom d'utilisateur" required>
+      <input type="email" name="email" placeholder="Email" required>
+      <input type="password" name="password" placeholder="Mot de passe" required>
+      <input type="password" name="confirm_password" placeholder="Confirmer le mot de passe" required>
+      <button type="submit">S'inscrire</button>
+    </form>
+
+    <a href="{{ url_for('connexion') }}">Déjà un compte ? Connexion</a>
+  </div>
+
+  <script>
+    const toggleButton = document.getElementById("themeToggle");
+    const body = document.body;
+
+    toggleButton.addEventListener("click", () => {
+      body.classList.toggle("light-mode");
+      toggleButton.textContent = body.classList.contains("light-mode") ? "☀️" : "🌙";
+    });
+  </script>
+</body>
+</html>
